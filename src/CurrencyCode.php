@@ -6,34 +6,31 @@ namespace Nomad145\ValueObjects;
 
 use Webmozart\Assert\Assert;
 
-class Country
+abstract class CurrencyCode
 {
     public const US = 'US';
     public const CA = 'CA';
     public const AU = 'AU';
 
     private const VALID_COUNTRIES = [
-        self::US,
-        self::CA,
-        self::AU,
+        self::US => USD::class,
+        self::CA => CAD::class,
+        self::AU => AUD::class,
     ];
-
-    private $value;
 
     public static function fromCountryCode(string $value): self
     {
         self::validate($value);
 
-        return new self($value);
+        $currencyCode = self::VALID_COUNTRIES[$value];
+
+        return new $currencyCode();
     }
 
     private static function validate(string $value)
     {
-        Assert::oneOf($value, self::VALID_COUNTRIES);
+        Assert::keyExists(self::VALID_COUNTRIES, $value);
     }
 
-    private function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+    abstract public function formatValue(float $value): string;
 }

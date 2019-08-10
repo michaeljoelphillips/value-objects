@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Nomad145\ValueObjects\Tests;
 
 use InvalidArgumentException;
-use Nomad145\ValueObjects\Country;
+use Nomad145\ValueObjects\CurrencyCode;
 use PHPUnit\Framework\TestCase;
 
-class CountryTest extends TestCase
+class CurrencyCodeTest extends TestCase
 {
     /**
      * @dataProvider illegalValues
@@ -17,14 +17,14 @@ class CountryTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        Country::fromCountryCode(Country::US);
+        CurrencyCode::fromCountryCode($illegalValues);
     }
 
     public function testFromCountryCodeWithLegalValues()
     {
         $this->addToAssertionCount(1);
 
-        Country::fromCountryCode(Country::US);
+        CurrencyCode::fromCountryCode(CurrencyCode::US);
     }
 
     public function illegalValues(): array

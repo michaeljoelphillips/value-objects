@@ -8,14 +8,14 @@ use Webmozart\Assert\Assert;
 
 class Currency
 {
-    private $country;
     private $value;
+    private $currencyCode;
 
-    public static function fromCountryAndValue(Country $country, float $value): self
+    public static function fromCountryAndValue(CurrencyCode $currencyCode, float $value): self
     {
         self::validate($value);
 
-        return new self($country, $value);
+        return new self($currencyCode, $value);
     }
 
     private static function validate(float $value)
@@ -23,9 +23,9 @@ class Currency
         Assert::greaterThan($value, 0);
     }
 
-    private function __construct(Country $country, float $value)
+    private function __construct(CurrencyCode $currencyCode, float $value)
     {
-        $this->country = $country;
+        $this->currencyCode = $currencyCode;
         $this->value = $value;
     }
 
@@ -34,9 +34,9 @@ class Currency
         return $this->value;
     }
 
-    public function getCountry(): Country
+    public function getCountry(): CurrencyCode
     {
-        return $this->country;
+        return $this->currencyCode;
     }
 
     public function add(self $currency): self
@@ -46,5 +46,19 @@ class Currency
         $value = $this->getValue() + $currency->getValue();
 
         return new self($this->getCountry(), $value);
+    }
+
+    public function subtract(self $currency): self
+    {
+        Assert::same($this->getCountry(), $currency->getCountry());
+
+        $value = $this->getValue() - $currency->getValue();
+
+        return new self($this->getCountry(), $value);
+    }
+
+    public function __toString(): string
+    {
+        return $this->currencyCode->formatValue($this->value);
     }
 }

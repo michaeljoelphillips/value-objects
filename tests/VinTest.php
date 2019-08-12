@@ -27,6 +27,13 @@ class VinTest extends TestCase
         Vin::fromString('12345678901234567');
     }
 
+    public function testGetValue()
+    {
+        $subject = Vin::fromString('12345678901234567');
+
+        $this->assertEquals('12345678901234567', $subject->getValue());
+    }
+
     public function illegalValues(): array
     {
         return [

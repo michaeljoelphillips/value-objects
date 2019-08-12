@@ -6,7 +6,7 @@ namespace Nomad145\ValueObjects;
 
 use Webmozart\Assert\Assert;
 
-class Vin
+final class Vin
 {
     private const LENGTH = 17;
     private const ILLEGAL_CHARACTERS = ['l', 'o', 'q'];

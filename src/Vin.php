@@ -13,15 +13,10 @@ class Vin
 
     private $value;
 
-    public static function fromString(string $value): self
+    public function __construct(string $value)
     {
         self::validate($value);
 
-        return new self($value);
-    }
-
-    private function __construct(string $value)
-    {
         $this->value = $value;
     }
 

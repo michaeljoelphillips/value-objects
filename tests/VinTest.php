@@ -17,19 +17,19 @@ class VinTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        Vin::fromString($illegalValue);
+        new Vin($illegalValue);
     }
 
     public function testFromStringWithValidValue()
     {
         $this->addToAssertionCount(1);
 
-        Vin::fromString('12345678901234567');
+        new Vin('12345678901234567');
     }
 
     public function testGetValue()
     {
-        $subject = Vin::fromString('12345678901234567');
+        $subject = new Vin('12345678901234567');
 
         $this->assertEquals('12345678901234567', $subject->getValue());
     }

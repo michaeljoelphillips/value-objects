@@ -13,7 +13,7 @@ class Vin
 
     private $value;
 
-    public static function fromString(string $value)
+    public static function fromString(string $value): self
     {
         self::validate($value);
 
@@ -25,7 +25,7 @@ class Vin
         $this->value = $value;
     }
 
-    private static function validate(string $value)
+    private static function validate(string $value): void
     {
         Assert::length($value, self::LENGTH);
 

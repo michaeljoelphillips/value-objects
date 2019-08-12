@@ -34,6 +34,11 @@ class Vin
         return $this->value;
     }
 
+    public function isEqual(Vin $vin): bool
+    {
+        return $this->value === $vin->value;
+    }
+
     public function __toString(): string
     {
         return $this->value;

@@ -34,6 +34,15 @@ class VinTest extends TestCase
         $this->assertEquals('12345678901234567', $subject->getValue());
     }
 
+    public function testIsEqual()
+    {
+        $subject = new Vin('12345678901234567');
+        $inequalSubject = new Vin('12345678901234568');
+
+        $this->assertTrue($subject->isEqual($subject));
+        $this->assertFalse($subject->isEqual($inequalSubject));
+    }
+
     public function illegalValues(): array
     {
         return [
